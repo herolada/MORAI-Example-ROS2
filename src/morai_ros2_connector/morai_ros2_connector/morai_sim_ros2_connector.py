@@ -15,7 +15,7 @@ from morai_msgs.msg import MoraiSimConfig
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 file_path = current_path+'/'
-file_name = 'morai_sim_ros2_config.json'
+file_name = 'morai_sim_config.json'
 
 
 class MoraiConfigFileHandler:
