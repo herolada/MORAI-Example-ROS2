@@ -14,17 +14,19 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 
 ## Requirements
 
-- Notice: we will be slowly phasing out support for sunsetted versions of ROS2 such as Eloquent and Foxy.
+- **Notice**: we will be slowly phasing out support for sunsetted versions of ROS2 such as Eloquent and Foxy.
 
-| ROS 2 Version | Support |
-|---|---|
-| Eloquent | 🟢 |
-| Foxy | 🟢 |
-| Galactic | 🟢 |
-| Humble | 🟢 (Updated 2025) |
-| Jazzy | Working on it! |
-| Kilted | Not planned |
+| ROS 2 Version | Supported | Ubuntu | Python |
+|---|---|---|---|
+| Eloquent | 🟢 | 18.04 | 3.6 |
+| Foxy | 🟢 | 20.04 | 3.8 |
+| Galactic | 🟢 | 20.04 | 3.8 |
+| Humble | 🟢 (Updated 2025) | 22.04 | 3.10 |
+| Iron | Not supported | 22.04 | 3.10 |
+| Jazzy | Expected Early 2026! | 24.04 | 3.12 |
+| Kilted | Not planned | 24.04 | 3.12 |
 
+- The bridge scripts will remain fixed to each version, but the example codebase will adopt whichever version is the most recent. (i.e. if Humble is the most recent supported version, all source code will be tested on Humble only)
 - Ubuntu version should match the ROS 2 distro (e.g. Humble --> Ubuntu 22.04)
 - Python version should also match the ROS 2 distro (e.g. Humble would by default match with Python 3.10)
 
@@ -43,7 +45,7 @@ $ source ./install/setup.bash
 
 ```
 $ source ./install/setup.bash
-$ ./gRPC_ROS2_Bridge
+$ ./morai_ros2_bridge_<ros2 version>
 ```
 
 ## Resources
