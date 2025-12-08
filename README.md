@@ -14,6 +14,7 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 
 ## Requirements
 
+- Notice: we will be slowly phasing out support for sunsetted versions of ROS2 such as Eloquent and Foxy.
 
 | ROS 2 Version | Support |
 |---|---|
