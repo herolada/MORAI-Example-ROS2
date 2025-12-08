@@ -5,11 +5,12 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 ## File structure
 ```
 ./
-├── src          
-│    ├── morai_ros2_connector     # script for MORAI Simulator to open ROS2 service
-│    ├── morai_ros2_msgs          # MORAI Simulator ROS2 message set (submodule)
-│    └── morai_sim_examples       # example ros2 nodes and unit testing code
-└── morai_ros2_bridge_[version]   # bridge script to connect MORAI SIM with ROS2
+├── release
+│    └── morai_ros2_bridge_<version>  # bridge script to connect MORAI SIM with ROS2
+└── src          
+     ├── morai_ros2_connector         # script for MORAI Simulator to open ROS2 service
+     ├── morai_ros2_msgs              # MORAI Simulator ROS2 message set (submodule)
+     └── morai_sim_examples           # example ros2 nodes and unit testing code
 ```
 
 ## Requirements
