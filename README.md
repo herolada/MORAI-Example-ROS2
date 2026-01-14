@@ -22,9 +22,9 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 | Eloquent | 🟢 | 18.04 | 3.6 |
 | Foxy | 🟢 | 20.04 | 3.8 |
 | Galactic | 🟢 | 20.04 | 3.8 |
-| Humble | 🟢 (Updated 2025) | 22.04 | 3.10 |
+| Humble | 🟢 (Updated 2025.12) | 22.04 | 3.10 |
 | Iron | Not supported | 22.04 | 3.10 |
-| Jazzy | Expected Early 2026! | 24.04 | 3.12 |
+| Jazzy | 🟢 (Updated 2026.1) | 24.04 | 3.12 |
 | Kilted | Not planned | 24.04 | 3.12 |
 
 - The bridge scripts will remain fixed to each version, but the example codebase will adopt whichever version is the most recent. (i.e. if Humble is the most recent supported version, all source code will be tested on Humble only)
