@@ -1,6 +1,5 @@
 import argparse
 from collections import defaultdict
-from distutils.command.config import config
 import os
 import json
 import rclpy
@@ -15,7 +14,8 @@ from morai_msgs.msg import MoraiSimConfig
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 file_path = current_path+'/'
-file_name = 'morai_sim_config.json'
+# file_name = 'morai_sim_ros2_config.json'
+file_name = 'morai_sim_sensor_1cam.json'
 
 
 class MoraiConfigFileHandler:
@@ -31,15 +31,16 @@ class MoraiConfigFileHandler:
             data = json.load(fp)
             converted = defaultdict(list)
             converted['publisherList'].extend(data['VehicleInterface'][0]['publisherList'] if 'publisherList' in data['VehicleInterface'][0] else [])
-            self.__check_publisher_validity(converted['publisherList'])
             converted['cameraList'].extend(data['SensorInterface'][1]['cameraList'] if 'cameraList' in data['SensorInterface'][1] else [])
-            self.__check_publisher_validity(converted['publisherList'])
             converted['GPSList'].extend(data['SensorInterface'][2]['GPSList'] if 'GPSList' in data['SensorInterface'][2] else [])
-            self.__check_publisher_validity(converted['publisherList'])
             converted['IMUList'].extend(data['SensorInterface'][3]['IMUList'] if 'IMUList' in data['SensorInterface'][3] else [])
+            converted['LidarList'].extend(data['SensorInterface'][4]['LidarList'] if 'LidarList' in data['SensorInterface'][4] else [])
+            converted['RadarList'].extend(data['SensorInterface'][5]['RadarList'] if 'RadarList' in data['SensorInterface'][5] else [])
             self.__check_publisher_validity(converted['publisherList'])
+
             converted['subscriberList'].extend(data['VehicleInterface'][1]['subscriberList'] if 'subscriberList' in data['VehicleInterface'][1] else [])
             self.__check_subscriber_validity(converted['subscriberList'])
+
             converted['serviceList'].extend(data['VehicleInterface'][2]['serviceList'] if 'serviceList' in data['VehicleInterface'][2] else [])
             converted['sensorConfigFileName'] = data['SensorInterface'][0]['sensorConfigFileName'] if 'sensorConfigFileName' in data['SensorInterface'][0] else ""
             return converted
@@ -57,10 +58,10 @@ class MoraiConfigFileHandler:
 
 
 class PublisherMoraiSimSetup(Node):
-    executor = None
-    
     def __init__(self):
         super().__init__('morai_sim_ros2_configuration')
+        self.done = False
+
         self.declare_parameter('qos_depth', 10)
         qos_depth = self.get_parameter('qos_depth').value
         QOS_RKL10TL = QoSProfile(
@@ -83,8 +84,12 @@ class PublisherMoraiSimSetup(Node):
         msg.camera_list = json.JSONEncoder().encode(morai_sim_config['cameraList'][:])
         msg.gps_list = json.JSONEncoder().encode(morai_sim_config['GPSList'][:])
         msg.imu_list = json.JSONEncoder().encode(morai_sim_config['IMUList'][:])
+        msg.lidar_list = json.JSONEncoder().encode(morai_sim_config['LidarList'][:])
+        msg.radar_list = json.JSONEncoder().encode(morai_sim_config['RadarList'][:])
         self.publisher_.publish(msg)
-        
+        self.done = True
+
+
 def main(args=None):
     global file_name
     parser = argparse.ArgumentParser()
@@ -108,10 +113,10 @@ def main(args=None):
     executor = SingleThreadedExecutor()
     executor.add_node(node)
     try:
-        while rclpy.ok():
+        while rclpy.ok() and not node.done:
             executor.spin_once(timeout_sec=1)
             node.publish_msg(morai_sim_config)
-            break
+        node.get_logger().info('Connector completed')
     except Exception as e:
         print(f'Error: {e}')
     finally: 

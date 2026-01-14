@@ -25,7 +25,7 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 | Humble | 🟢 (Updated 2025.12) | 22.04 | 3.10 |
 | Iron | Not supported | 22.04 | 3.10 |
 | Jazzy | 🟢 (Updated 2026.1) | 24.04 | 3.12 |
-| Kilted | Not planned | 24.04 | 3.12 |
+| Kilted | Not supported | 24.04 | 3.12 |
 
 - The bridge scripts will remain fixed to each version, but the example codebase will adopt whichever version is the most recent. (i.e. if Humble is the most recent supported version, all source code will be tested on Humble only)
 - Ubuntu version should match the ROS 2 distro (e.g. Humble --> Ubuntu 22.04)
@@ -33,21 +33,29 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 
 ## Setup
 
-```
+```bash
 $ mkdir ~/ws_morai_sim_example
 $ cd ~/ws_morai_sim_example
 $ git clone https://github.com/MORAI-Autonomous/MORAI-Example-ROS2.git
 $ source /opt/ros/<your ROS2 version>/setup.bash
 $ colcon build
-$ source ./install/setup.bash
+$ source /install/setup.bash
 ```
 
 ## Use
 
-```
-$ source ./install/setup.bash
+```bash
+$ source /install/setup.bash
 $ ./morai_ros2_bridge_<ros2 version>
 ```
+
+If successful, the terminal should show: `MORAI Bridge: <version>`, followed by connection information.
+
+## Troubleshooting
+
+Library dependencies can lead to the bridge executable failing to correctly start. Some libraries that may not be part of a standard wsl install that may need to manually installed are:
+- libabsl-dev
+- libgrpc++-dev
 
 ## Resources
 
