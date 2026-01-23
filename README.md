@@ -31,6 +31,12 @@ Check that your MORAI SIM is configured correctly for communicating over ROS2 wi
 - Ubuntu version should match the ROS 2 distro (e.g. Humble --> Ubuntu 22.04)
 - Python version should also match the ROS 2 distro (e.g. Humble would by default match with Python 3.10)
 
+### Dependencies with MORAI SIM
+
+This example repository is compatible up to MORAI SIM 24.R2.H2.
+
+With the release of 26.R1., ROS2 Humble is natively supported by the simulator, no longer requiring the `morai_ros2_connector` script to connect to the ROS2 network.
+
 ## Setup
 
 ```bash
